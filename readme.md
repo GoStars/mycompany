@@ -1,0 +1,2 @@
+# mycompany
+Simple company website
