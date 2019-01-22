@@ -4,10 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>My Company</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+
+        <!-- Favicon -->
+        <link href="{{asset('favicon.ico')}}" rel="shortcut icon">
 
         <!-- Styles -->
         <style>
@@ -68,7 +71,13 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        @if (Auth::user()->role == 'director')
+                            <a href="{{ route('director.dashboard') }}">Dashboard</a>
+                        @elseif (Auth::user()->role == 'employee')
+                            <a href="{{ route('employee.dashboard') }}">Dashboard</a>
+                        @else
+                            <a href="{{ route('home') }}">home</a>
+                        @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -81,7 +90,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    My Company
                 </div>
 
                 <div class="links">
