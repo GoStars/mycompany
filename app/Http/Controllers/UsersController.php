@@ -78,6 +78,8 @@ class UsersController extends Controller
 
         $user->update($attributes);
 
+        flash('User updated.');
+
         return redirect()->route('users');
     }
 
@@ -90,6 +92,8 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        flash('The user has been deleted.');
 
         return redirect()->route('users');
     }

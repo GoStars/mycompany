@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class EmployeesController extends Controller
 {
@@ -14,7 +15,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = User::where('role', 'employee')->paginate(10);
+        $employees = User::with(['payments' => function($query) {
+                $query->whereDay('created_at', Carbon::today());
+            }])->where('role', 'employee')->paginate(10);
 
         return view('director.employees.index', compact('employees'));
     }
@@ -47,6 +50,8 @@ class EmployeesController extends Controller
 
         User::create($attributes);
 
+        flash('An employee has been added.');
+
         return redirect()->route('employees');
     }
 
@@ -58,9 +63,7 @@ class EmployeesController extends Controller
      */
     public function show(User $employee)
     {   
-        $payments = $employee->payments()
-            ->orderBy('updated_at', 'desc')
-            ->paginate(10);
+        $payments = $employee->payments()->latest()->paginate(10);
 
         return view('director.employees.show', compact('employee', 'payments'));
     }

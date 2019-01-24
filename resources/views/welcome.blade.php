@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>My Company</title>
 
@@ -10,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
         <!-- Favicon -->
-        <link href="{{asset('favicon.ico')}}" rel="shortcut icon">
+        <link href="{{ asset('favicon.ico') }}" rel="shortcut icon">
 
         <!-- Styles -->
         <style>
@@ -76,7 +77,7 @@
                         @elseif (Auth::user()->role == 'employee')
                             <a href="{{ route('employee.dashboard') }}">Dashboard</a>
                         @else
-                            <a href="{{ route('home') }}">home</a>
+                            <a href="{{ route('home') }}">Home</a>
                         @endif
                     @else
                         <a href="{{ route('login') }}">Login</a>

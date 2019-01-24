@@ -1,17 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.starter')
 
 @section('title')
     Dashboard
 @endsection
 
 @section('content')
-<div class="container">
-    <h1>Dashboard</h1>
-    <ul>
-        <li><a href="{{ route('director.dashboard') }}">Dashboard</a></li>
-        <li><a href="{{ route('users') }}">Users</a></li>
-        <li><a href="{{ route('employees') }}">Employees</a></li>
-        <li><a href="{{ route('employees.create') }}">Add employee</a></li>
-    </ul>
-</div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            @if (session('status'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+                            <p class="card-text">This is your dashboard.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

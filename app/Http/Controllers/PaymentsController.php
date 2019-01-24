@@ -14,11 +14,9 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        $payments = Payment::where('owner_id', auth()->id())
-            ->orderBy('updated_at', 'desc')
-            ->paginate(10);
-
-        return view('employee.index', compact('payments'));
+        return view('employee.index', [
+            'payments' => auth()->user()->payments()->latest()->paginate(10)
+        ]);
     }
 
     /**
@@ -48,9 +46,9 @@ class PaymentsController extends Controller
 
         $attributes['owner_id'] = auth()->id();
 
-        // dd($attributes);
-
         Payment::create($attributes);
+
+        flash('Payment created.');
 
         return redirect()->route('payments');
     }
